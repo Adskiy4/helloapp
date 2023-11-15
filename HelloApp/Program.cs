@@ -12,7 +12,7 @@ namespace HelloApp
         
         public static void Main()
         {
-            Console.WriteLine("hello");
+            Console.WriteLine("hello everyone");
         }
     }
 }
