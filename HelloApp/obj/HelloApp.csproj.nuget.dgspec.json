@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\StarK\\Desktop\\git-actually\\helloapp-white\\HelloApp\\HelloApp.csproj": {}
+    "C:\\Users\\StarK\\Desktop\\git-actually\\helloapp-black\\HelloApp\\HelloApp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\StarK\\Desktop\\git-actually\\helloapp-white\\HelloApp\\HelloApp.csproj": {
+    "C:\\Users\\StarK\\Desktop\\git-actually\\helloapp-black\\HelloApp\\HelloApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\StarK\\Desktop\\git-actually\\helloapp-white\\HelloApp\\HelloApp.csproj",
+        "projectUniqueName": "C:\\Users\\StarK\\Desktop\\git-actually\\helloapp-black\\HelloApp\\HelloApp.csproj",
         "projectName": "HelloApp",
-        "projectPath": "C:\\Users\\StarK\\Desktop\\git-actually\\helloapp-white\\HelloApp\\HelloApp.csproj",
+        "projectPath": "C:\\Users\\StarK\\Desktop\\git-actually\\helloapp-black\\HelloApp\\HelloApp.csproj",
         "packagesPath": "C:\\Users\\StarK\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\StarK\\Desktop\\git-actually\\helloapp-white\\HelloApp\\obj\\",
+        "outputPath": "C:\\Users\\StarK\\Desktop\\git-actually\\helloapp-black\\HelloApp\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\StarK\\AppData\\Roaming\\NuGet\\NuGet.Config"
