@@ -6,7 +6,29 @@ class Program
 {
     static List<string> Solve(Dictionary<string, List<string>> edges)
     {
-        return BFS(edges);
+        var start = "a";
+        var result = new List<string>();
+        var count = 0;
+        while (true)
+        {
+            var paths = BFS(edges, start);
+            if(paths.Count == 0)
+                break;
+            var path = paths.OrderBy(v => v.Item1).First();
+            if (count != 0)
+                start = path.Item2[1];
+            var concatNode = path.Item2[^1];
+            DeleteEdge(edges, concatNode, path.Item1);
+            result.Add($"{path.Item1}-{concatNode}");
+            count++;
+        }
+        return result;
+    }
+
+    public static void DeleteEdge(Dictionary<string, List<string>> edges, string from, string to)
+    {
+        edges[from].Remove(to);
+        edges[to].Remove(from);
     }
 
     static void Main()
@@ -39,32 +61,44 @@ class Program
         }
     }
 
-    public static List<string> BFS(Dictionary<string, List<string>> graph)
+    public static List<(string, List<string>)> BFS(Dictionary<string, List<string>> graph, string start)
     {
-        var start = "a";
-        var queue = new Queue<string>();
-        var result = new List<string>();
+        var queue = new Queue<List<string>>();
         var visited = new HashSet<string>();
-        queue.Enqueue(start);
+        queue.Enqueue(new List<string>(){start});
+        var paths = new List<(string, List<string>)>();
+        var minLength = int.MaxValue;
         while (queue.Count > 0)
         {
-            var node = queue.Dequeue();
-            if(visited.Contains(node))
-                continue;
+            var path = queue.Dequeue();
+            var node = path[^1];
+            if ( path.Count > minLength)
+                break;
             visited.Add(node);
             var neighbours = graph[node];
             foreach (var neighbour in neighbours.OrderBy(v => v))
             {
+                if(visited.Contains(neighbour))
+                    continue;
                 if (neighbour.Equals(neighbour.ToUpper()))
                 {
-                    result.Add($"{neighbour}-{node}");
+                    if(path.Count == minLength)
+                        paths.Add((neighbour,path));
+                    else if (path.Count < minLength)
+                    {
+                        minLength = path.Count;
+                        paths = new List<(string, List<string>)>();
+                        paths.Add((neighbour, path));
+                    }
                 }
                 else
                 {
-                    queue.Enqueue(neighbour);
+                    var newPath = new List<string>(path) { neighbour };
+                    queue.Enqueue(newPath);
                 }
             }
         }
-        return result;
+
+        return paths;
     }
 }
