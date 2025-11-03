@@ -73,7 +73,7 @@ class Program
             var path = queue.Dequeue();
             var node = path[^1];
             if ( path.Count > minLength)
-                break;
+                continue;
             visited.Add(node);
             var neighbours = graph[node];
             foreach (var neighbour in neighbours.OrderBy(v => v))
