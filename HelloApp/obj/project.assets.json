@@ -1,36 +1,44 @@
 {
   "version": 3,
   "targets": {
-    "net7.0": {}
+    "net9.0": {}
   },
   "libraries": {},
   "projectFileDependencyGroups": {
-    "net7.0": []
+    "net9.0": []
   },
   "packageFolders": {
-    "C:\\Users\\StarK\\.nuget\\packages\\": {}
+    "C:\\Users\\StarK\\.nuget\\packages\\": {},
+    "C:\\Visual Studio\\shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\StarK\\Desktop\\git-actually\\helloapp-black\\HelloApp\\HelloApp.csproj",
+      "projectUniqueName": "C:\\helloapp\\HelloApp\\HelloApp.csproj",
       "projectName": "HelloApp",
-      "projectPath": "C:\\Users\\StarK\\Desktop\\git-actually\\helloapp-black\\HelloApp\\HelloApp.csproj",
+      "projectPath": "C:\\helloapp\\HelloApp\\HelloApp.csproj",
       "packagesPath": "C:\\Users\\StarK\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\StarK\\Desktop\\git-actually\\helloapp-black\\HelloApp\\obj\\",
+      "outputPath": "C:\\helloapp\\HelloApp\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Visual Studio\\shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\StarK\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\StarK\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
-        "net7.0"
+        "net9.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
-        "net7.0": {
-          "targetAlias": "net7.0",
+        "net9.0": {
+          "targetAlias": "net9.0",
           "projectReferences": {}
         }
       },
@@ -38,11 +46,16 @@
         "warnAsError": [
           "NU1605"
         ]
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
       }
     },
     "frameworks": {
-      "net7.0": {
-        "targetAlias": "net7.0",
+      "net9.0": {
+        "targetAlias": "net9.0",
         "imports": [
           "net461",
           "net462",
@@ -59,7 +72,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
