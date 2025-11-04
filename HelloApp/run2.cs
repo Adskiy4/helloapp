@@ -14,8 +14,11 @@ class Program
             var paths = BFS(edges, start);
             if(paths.Count == 0)
                 break;
-            var path = paths.OrderBy(v => v.Item1).First();
-            if (count != 0)
+            var path = paths
+                .OrderBy(p => p.Item1)
+                .ThenBy(p => p.Item2.Count > 1 ? p.Item2[1] : p.Item2[0])
+                .First();
+            if (count != 0 && path.Item2.Count > 1)
                 start = path.Item2[1];
             var concatNode = path.Item2[^1];
             DeleteEdge(edges, concatNode, path.Item1);
