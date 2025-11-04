@@ -33,7 +33,7 @@ class Program
 
     static void Main()
     {
-        var edges = new Dictionary<string, List<string>>();
+        var graph = new Dictionary<string, List<string>>();
         string line;
 
         while ((line = Console.ReadLine()) != null && line != "")
@@ -44,17 +44,17 @@ class Program
                 var parts = line.Split('-');
                 if (parts.Length == 2)
                 {
-                    if(!edges.ContainsKey(parts[0]))
-                        edges[parts[0]] = new List<string>();
-                    edges[parts[0]].Add(parts[1]);
-                    if(!edges.ContainsKey(parts[1]))
-                        edges[parts[1]] = new List<string>();
-                    edges[parts[1]].Add(parts[0]);
+                    if(!graph.ContainsKey(parts[0]))
+                        graph[parts[0]] = new List<string>();
+                    graph[parts[0]].Add(parts[1]);
+                    if(!graph.ContainsKey(parts[1]))
+                        graph[parts[1]] = new List<string>();
+                    graph[parts[1]].Add(parts[0]);
                 }
             }
         }
 
-        var result = Solve(edges);
+        var result = Solve(graph);
         foreach (var edge in result)
         {
             Console.WriteLine(edge);
