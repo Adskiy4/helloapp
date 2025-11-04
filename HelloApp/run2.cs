@@ -6,7 +6,7 @@ class Program
 {
     static List<string> Solve(Dictionary<string, List<string>> graph)
     {
-        string virus = "a";
+        var virus = "a";
         var result = new List<string>();
 
         while (true)
