@@ -191,8 +191,8 @@ class Program
             }
         }
 
-        var result = Solve(graph);
-        foreach (var edge in result)
+        var res = Solve(graph);
+        foreach (var edge in res)
         {
             Console.WriteLine(edge);
         }
