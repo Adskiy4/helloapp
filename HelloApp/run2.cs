@@ -99,21 +99,21 @@ class Program
 
     static void Main()
     {
-        var graph = new Dictionary<string, List<string>>();
+        var edges = new Dictionary<string, List<string>>();
         string line;
         while ((line = Console.ReadLine()) != null && line != "")
         {
             var parts = line.Trim().Split('-');
             if (parts.Length == 2)
             {
-                if (!graph.ContainsKey(parts[0])) graph[parts[0]] = new List<string>();
-                graph[parts[0]].Add(parts[1]);
-                if (!graph.ContainsKey(parts[1])) graph[parts[1]] = new List<string>();
-                graph[parts[1]].Add(parts[0]);
+                if (!edges.ContainsKey(parts[0])) edges[parts[0]] = new List<string>();
+                edges[parts[0]].Add(parts[1]);
+                if (!edges.ContainsKey(parts[1])) edges[parts[1]] = new List<string>();
+                edges[parts[1]].Add(parts[0]);
             }
         }
 
-        var result = Solve(graph);
+        var result = Solve(edges);
         foreach (var edge in result)
         {
             Console.WriteLine(edge);
