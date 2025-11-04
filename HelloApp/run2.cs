@@ -4,8 +4,17 @@ using System.Linq;
 
 class Program
 {
-    static List<string> Solve(Dictionary<string, List<string>> graph)
+    static List<string> Solve(List<(string, string)> edges)
     {
+        var graph = new Dictionary<string, HashSet<string>>();
+        foreach (var (a, b) in edges)
+        {
+            if (!graph.ContainsKey(a)) graph[a] = new HashSet<string>();
+            if (!graph.ContainsKey(b)) graph[b] = new HashSet<string>();
+            graph[a].Add(b);
+            graph[b].Add(a);
+        }
+
         var virus = "a";
         var result = new List<string>();
 
@@ -14,11 +23,9 @@ class Program
             var paths = BFS(graph, virus);
             if (paths.Count == 0) break;
 
-            var cut = paths
-                .OrderBy(p => $"{p.gateway}-{p.prev}")
-                .First();
-
-            DeleteEdge(graph, cut.gateway, cut.prev);
+            var cut = paths.OrderBy(p => $"{p.gateway}-{p.prev}").First();
+            graph[cut.gateway].Remove(cut.prev);
+            graph[cut.prev].Remove(cut.gateway);
             result.Add($"{cut.gateway}-{cut.prev}");
 
             var pathsAfter = BFS(graph, virus);
@@ -35,18 +42,12 @@ class Program
         return result;
     }
 
-    static void DeleteEdge(Dictionary<string, List<string>> edges, string from, string to)
-    {
-        if (edges.ContainsKey(from)) edges[from].Remove(to);
-        if (edges.ContainsKey(to)) edges[to].Remove(from);
-    }
-
-    static List<(string gateway, string prev, string next)> BFS(Dictionary<string, List<string>> graph, string start)
+    static List<(string gateway, string prev, string next)> BFS(Dictionary<string, HashSet<string>> graph, string start)
     {
         var queue = new Queue<string>();
         var parent = new Dictionary<string, string>();
         var distance = new Dictionary<string, int>();
-        var gateways = new List<(string, string, string)>();
+        var gateways = new List<(string gateway, string prev, string next)>();
         var minDistance = int.MaxValue;
 
         queue.Enqueue(start);
@@ -59,26 +60,26 @@ class Program
 
             foreach (var neighbour in graph[node].OrderBy(v => v))
             {
-                if (!distance.ContainsKey(neighbour))
+                if (distance.ContainsKey(neighbour)) continue;
+                distance[neighbour] = distance[node] + 1;
+                parent[neighbour] = node;
+
+                if (char.IsUpper(neighbour[0]))
                 {
-                    distance[neighbour] = distance[node] + 1;
-                    parent[neighbour] = node;
-                    if (char.IsUpper(neighbour[0]))
+                    if (distance[neighbour] < minDistance)
                     {
-                        if (distance[neighbour] < minDistance)
-                        {
-                            minDistance = distance[neighbour];
-                            gateways.Clear();
-                        }
-                        if (distance[neighbour] == minDistance)
-                        {
-                            gateways.Add((neighbour, node, GetNextStep(parent, start, node)));
-                        }
+                        minDistance = distance[neighbour];
+                        gateways.Clear();
                     }
-                    else
+                    if (distance[neighbour] == minDistance)
                     {
-                        queue.Enqueue(neighbour);
+                        var nextStep = GetNextStep(parent, start, neighbour);
+                        gateways.Add((neighbour, parent[neighbour], nextStep));
                     }
+                }
+                else
+                {
+                    queue.Enqueue(neighbour);
                 }
             }
         }
@@ -86,37 +87,32 @@ class Program
         return gateways;
     }
 
-    public static string GetNextStep(Dictionary<string, string> parent, string start, string node)
+    static string GetNextStep(Dictionary<string, string> parent, string start, string node)
     {
-        var path = new Stack<string>();
-        while (node != start)
-        {
-            path.Push(node);
-            node = parent[node];
-        }
-        return path.Count > 0 ? path.Peek() : start;
+        var prev = node;
+        while (parent[prev] != start)
+            prev = parent[prev];
+        return prev;
     }
 
     static void Main()
     {
-        var edges = new Dictionary<string, List<string>>();
+        var edges = new List<(string, string)>();
         string line;
-        while ((line = Console.ReadLine()) != null && line != "")
+
+        while ((line = Console.ReadLine()) != null)
         {
-            var parts = line.Trim().Split('-');
-            if (parts.Length == 2)
+            line = line.Trim();
+            if (!string.IsNullOrEmpty(line))
             {
-                if (!edges.ContainsKey(parts[0])) edges[parts[0]] = new List<string>();
-                edges[parts[0]].Add(parts[1]);
-                if (!edges.ContainsKey(parts[1])) edges[parts[1]] = new List<string>();
-                edges[parts[1]].Add(parts[0]);
+                var parts = line.Split('-');
+                if (parts.Length == 2)
+                    edges.Add((parts[0], parts[1]));
             }
         }
 
         var result = Solve(edges);
         foreach (var edge in result)
-        {
             Console.WriteLine(edge);
-        }
     }
 }
